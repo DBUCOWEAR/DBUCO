@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>D'BUCO · Pernambuco se veste</title>
+<meta name="description" content="D'BUCO: streetwear pernambucano feito em Recife. Camisetas com frevo, maracatu e manguebeat, pedidos direto pelo WhatsApp.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,200..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== LOGO (SVG reutilizável) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <clipPath id="leafclip"><path d="M103 40 C99 24 107 8 125 2 C129 19 121 34 103 40 Z"/></clipPath>
+    <symbol id="logo" viewBox="0 0 160 100">
+      <path d="M14 14 V90 H44 A38 38 0 0 0 44 14 Z" fill="none" stroke="currentColor" stroke-width="9" stroke-linejoin="miter"/>
+      <path d="M120 42 A24 24 0 1 1 99.4 57.8" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="butt"/>
+      <g clip-path="url(#leafclip)">
+        <g transform="rotate(-28 114 21)">
+          <rect x="80" y="-20" width="80" height="44" fill="#1d4fa8"/>
+          <rect x="80" y="20" width="80" height="4" fill="#d42b1f"/>
+          <rect x="80" y="24" width="80" height="4" fill="#f5c400"/>
+          <rect x="80" y="28" width="80" height="4" fill="#00913a"/>
+          <rect x="80" y="32" width="80" height="30" fill="#fff"/>
+        </g>
+        <circle cx="117" cy="13" r="2.4" fill="#f5c400"/>
+        <path d="M110 33h4M112 31v4" stroke="#d42b1f" stroke-width="1.4"/>
+      </g>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <a class="brand" href="#inicio" aria-label="D'BUCO, voltar ao início"><svg role="img" aria-hidden="true"><use href="#logo"/></svg><span class="wordmark">D'BUCO</span></a>
+  <nav class="nav" aria-label="Principal">
+    <a href="#colecao">Coleção</a>
+    <a href="#/folha" id="navFolha">Folha</a>
+    <a href="#sobre" class="hide-sm">Sobre</a>
+    <a href="#comprar" class="hide-sm">Como comprar</a>
+    <button class="bag-btn" id="openBag" aria-label="Abrir minha lista">Lista (<span class="bag-count" id="bagCount">0</span>)</button>
+  </nav>
+</header>
+
+<main id="inicio" data-view="inicio">
+  <section class="hero" aria-label="Apresentação">
+    <div class="hero-photo"><img src="moletom-bordado.jpg" alt="Moletom preto da D'BUCO com o logo bordado em branco e a folha com a bandeira de Pernambuco"></div>
+    <div class="hero-copy">
+      <h1><span>Pernambuco</span><span>se veste</span></h1>
+      <div class="hero-foot">
+        <p>D'BUCO é streetwear feito em Recife, com o frevo, o mangue e a bandeira bordados no peito.</p>
+        <a href="#colecao" class="btn btn-light">Ver a coleção</a>
+      </div>
+    </div>
+  </section>
+  <div class="flagline" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+  <section class="collection wrap" id="colecao">
+    <div class="col-head">
+      <div>
+        <h2>Coleção<br>Leão do Norte</h2>
+        <p>A primeira coleção é só de camisetas. Escolha a sua e o tamanho: o pedido vai direto pro nosso WhatsApp, sem cadastro e sem checkout.</p>
+      </div>
+      <p class="kind" id="countLine" style="font-size:13px"></p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="manifesto" id="sobre">
+    <div class="wrap">
+      <blockquote>A gente cresceu entre ladeira de Olinda, maracatu na rua e caranguejo com cérebro. Era hora de vestir isso.</blockquote>
+      <div class="cols">
+        <div><h3>Feito aqui</h3><p>Corte, bordado e estampa produzidos por oficinas da Região Metropolitana do Recife.</p></div>
+        <div><h3>A folha</h3><p>A bandeira de Pernambuco virou folha no logo da D'BUCO: um pedaço do estado que brota em cada peça.</p></div>
+        <div><h3>Pouca peça, muita vida</h3><p>Lançamos em pequenas tiragens. Quando acaba, acaba, e a próxima coleção já vem com outra história.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="how wrap" id="comprar">
+    <h2>Como comprar</h2>
+    <ol class="steps">
+      <li><h3>Escolha</h3><p>Abra a camiseta, selecione o tamanho e adicione à sua lista.</p></li>
+      <li><h3>Envie pelo WhatsApp</h3><p>Sua lista vira uma mensagem pronta. É só tocar em enviar.</p></li>
+      <li><h3>Combine a entrega</h3><p>Retirada em Recife, motoboy na Região Metropolitana ou envio pelos Correios.</p></li>
+    </ol>
+    <div class="cta"><a class="btn btn-wa" id="waGeneral" target="_blank" rel="noopener">Falar no WhatsApp</a></div>
+  </section>
+</main>
+
+<main id="jornal" data-view="jornal" hidden>
+  <div class="jr wrap">
+    <div id="jrList">
+      <div class="mast">
+        <h1>Folha<br><b>D'BUCO</b></h1>
+        <div class="mast-side"><strong id="jrEdition">Edição de hoje</strong>O jornal da D'BUCO, escrito por quem veste, cria e vive a marca.</div>
+      </div>
+      <div class="jr-bar">
+        <p>Conte a história de uma camisa, a ideia por trás de uma coleção, como uma estampa nasceu ou qualquer coisa que você queira dividir. Do seu jeito.</p>
+        <div style="display:grid;gap:8px;justify-items:end">
+          <button class="btn btn-solid" id="jrWrite" hidden>Escrever na Folha</button>
+          <span class="jr-note" id="jrNote"></span>
+          <button class="link-btn" id="jrLogout" hidden>Sair da conta</button>
+        </div>
+      </div>
+      <div class="filters" role="group" aria-label="Filtrar publicações" id="jrFilters" style="margin-bottom:28px"></div>
+      <div class="feed" id="feed"></div>
+    </div>
+    <article id="jrArticle" hidden></article>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div class="foot">
+    <div><svg width="70" style="color:var(--ink)" aria-hidden="true"><use href="#logo"/></svg><p style="margin-top:10px;font-weight:700;font-stretch:125%;letter-spacing:.08em">D'BUCO</p><p style="color:var(--muted)">Pernambuco se veste.</p></div>
+    <div><h4>Loja</h4><a href="#colecao">Coleção</a><a href="#/folha">Folha</a><a href="#comprar">Como comprar</a></div>
+    <div><h4>Contato</h4><a id="waFoot" target="_blank" rel="noopener">WhatsApp</a><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></div>
+    <div><h4>Endereço</h4><a>Recife, Pernambuco</a></div>
+  </div>
+  <p class="fine">© 2026 D'BUCO. Projeto acadêmico.</p>
+</footer>
+
+<a class="fab" id="waFab" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp">
+  <svg viewBox="0 0 32 32"><path d="M16 3a13 13 0 0 0-11.2 19.6L3 29l6.6-1.7A13 13 0 1 0 16 3zm0 23.7c-2 0-4-.5-5.7-1.6l-.4-.2-3.9 1 1-3.8-.3-.4A10.7 10.7 0 1 1 16 26.7zm5.9-8c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.8 8.8 0 0 1-4.4-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.2 1.3 3.4c.2.2 2.3 3.5 5.6 4.9 2.1.9 2.9 1 4 .8.6-.1 1.9-.8 2.2-1.5s.3-1.4.2-1.5c-.1-.2-.3-.2-.6-.4z"/></svg>
+</a>
+
+<div class="overlay" id="overlay"></div>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+  <div class="ph" id="mImg"></div>
+  <div class="info">
+    <button class="close" id="mClose" aria-label="Fechar">×</button>
+    <h3 id="mTitle"></h3>
+    <div class="price" id="mPrice"></div>
+    <p class="desc" id="mDesc"></p>
+    <span class="sizes-label">Tamanho</span>
+    <div class="sizes" id="mSizes" role="group" aria-label="Tamanho"></div>
+    <div class="hint" id="mHint" aria-live="polite"></div>
+    <div class="actions">
+      <button class="btn btn-solid" id="mAdd">Adicionar à lista</button>
+      <button class="btn btn-wa" id="mWa">Pedir esta peça no WhatsApp</button>
+    </div>
+  </div>
+</div>
+
+<aside class="drawer" id="drawer" aria-label="Minha lista">
+  <div style="display:flex;justify-content:space-between;align-items:center"><h3>Minha lista</h3><button class="close" style="position:static" id="dClose" aria-label="Fechar lista">×</button></div>
+  <ul id="bagList"></ul>
+  <div class="total"><span>Total estimado</span><strong id="bagTotal">R$ 0</strong></div>
+  <button class="btn btn-wa" id="sendBag">Enviar lista pelo WhatsApp</button>
+</aside>
+
+<div class="composer" id="composer" role="dialog" aria-modal="true" aria-labelledby="compTitle">
+  <div class="comp-in">
+    <div class="comp-top"><h2 id="compTitle">Nova publicação</h2><button class="close" style="position:static" id="cClose" aria-label="Fechar sem publicar">×</button></div>
+    <div class="field"><span>Sobre o quê?</span><div class="chips" id="cKinds" role="group" aria-label="Assunto"></div></div>
+    <div class="field"><span>Camisa relacionada (opcional)</span>
+      <select id="cPiece"><option value="">Nenhuma</option></select></div>
+    <label class="field"><span>Título</span><input type="text" id="cTitle" maxlength="120" placeholder="Como a sombrinha virou estampa"></label>
+    <label class="field"><span>Texto</span><textarea id="cBody" maxlength="12000" placeholder="Escreva do jeito que quiser. Deixe uma linha em branco para começar um novo parágrafo."></textarea></label>
+    <div class="field"><span>Foto (opcional)</span>
+      <label class="photo-drop" id="cDrop"><input type="file" accept="image/*" id="cFile"><span id="cPhotoInfo">Toque para escolher uma foto do celular ou do computador</span></label>
+      <button class="link-btn" id="cPhotoRemove" hidden style="justify-self:start">Remover foto</button></div>
+    <div class="field"><span>Formato da página</span><div class="formats" id="cFormats" role="group" aria-label="Formato"></div></div>
+    <label class="field"><span>Assinatura (opcional)</span><input type="text" id="cSign" maxlength="60" placeholder="Seu nome, apelido ou @ do Instagram"></label>
+    <div class="comp-actions"><span class="status" id="cStatus" aria-live="polite"></span><button class="btn btn-solid" id="cPublish">Publicar na Folha</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="config.js"></script>
+<script src="backend.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

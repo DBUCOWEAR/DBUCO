@@ -1,0 +1,45 @@
+rules_version = '2';
+
+// Regras de segurança da Folha D'BUCO.
+// Cole este conteúdo em Firebase > Firestore Database > Regras > Publicar.
+// Troque o e-mail em isAdmin() pelo(s) mesmo(s) de js/config.js.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isAdmin() {
+      return request.auth != null
+        && request.auth.token.email in ['seuemail@gmail.com'];
+    }
+
+    function validPost(d) {
+      return d.title is string && d.title.size() > 0 && d.title.size() <= 120
+        && d.body is string && d.body.size() > 0 && d.body.size() <= 12000
+        && d.kind in ['peca', 'colecao', 'processo', 'ideia', 'livre']
+        && d.layout in ['texto', 'manchete', 'citacao']
+        && d.image is string && d.image.size() <= 400000
+        && d.signature is string && d.signature.size() <= 60
+        && d.createdAt is number;
+    }
+
+    match /posts/{postId} {
+      // qualquer visitante lê
+      allow read: if true;
+
+      // quem entrou com Google publica, sempre em nome próprio
+      allow create: if request.auth != null
+        && request.resource.data.authorId == request.auth.uid
+        && validPost(request.resource.data);
+
+      // só o autor edita, sem trocar o dono
+      allow update: if request.auth != null
+        && resource.data.authorId == request.auth.uid
+        && request.resource.data.authorId == resource.data.authorId
+        && validPost(request.resource.data);
+
+      // autor ou administrador apaga
+      allow delete: if request.auth != null
+        && (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+  }
+}

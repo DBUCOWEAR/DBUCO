@@ -113,8 +113,10 @@ const paras=t=>String(t||"").split(/\n\s*\n|\n/).map(p=>p.trim()).filter(Boolean
 const dateBR=ms=>new Date(ms).toLocaleDateString("pt-BR",{day:"numeric",month:"long",year:"numeric"});
 
 let BE=null,me=null,posts=[],jrFilter="todos",openId=null;
-const ADMINS=((window.SITE_CONFIG||{}).admins||[]).map(e=>e.toLowerCase());
-const isAdmin=()=>!!(me&&me.email&&ADMINS.includes(me.email.toLowerCase()));
+/* Só quem está na lista "equipe" do config.js escreve na Folha. Visitantes só leem. */
+const CFG=window.SITE_CONFIG||{};
+const EQUIPE=(CFG.equipe||CFG.admins||[]).map(e=>String(e).trim().toLowerCase());
+const isTeam=()=>!!me&&((BE&&BE.mode==="teste")||(!!me.email&&EQUIPE.includes(me.email.toLowerCase())));
 $("#jrEdition").textContent="Edição de "+new Date().toLocaleDateString("pt-BR",{day:"numeric",month:"long"});
 
 function renderJrFilters(){
@@ -133,7 +135,7 @@ function renderFeed(){
   const list=posts.filter(p=>jrFilter==="todos"||p.kind===jrFilter);
   if(BE===null){$("#feed").innerHTML=`<div class="jr-empty"><strong>Carregando a Folha…</strong></div>`;return;}
   if(BE.mode==="offline"){$("#feed").innerHTML=`<div class="jr-empty"><strong>A Folha não carregou</strong>Verifique a internet e recarregue a página. Se continuar, confira os dados do Firebase em js/config.js.</div>`;return;}
-  if(!list.length){$("#feed").innerHTML=`<div class="jr-empty"><strong>${posts.length?"Nada nesse assunto ainda":"A Folha está esperando a primeira página"}</strong>${posts.length?"Escolha Tudo para ver todas as publicações, ou escreva a primeira sobre esse tema.":"Toque em Escrever na Folha e conte a história de uma camisa."}</div>`;return;}
+  if(!list.length){$("#feed").innerHTML=`<div class="jr-empty"><strong>${posts.length?"Nada nesse assunto ainda":"A Folha está esperando a primeira página"}</strong>${posts.length?"Escolha Tudo para ver todas as publicações.":"As primeiras histórias da D'BUCO chegam em breve."}</div>`;return;}
   $("#feed").innerHTML=list.map((p,i)=>{const k=kindOf(p.kind),feat=i===0&&jrFilter==="todos";
     const prod=p.piece&&PRODUCTS.find(x=>x.id===p.piece);
     return `<button class="post ${feat?"feature":""}" data-id="${esc(p.id)}">
@@ -159,7 +161,7 @@ function renderArticle(){
   if(p.layout==="texto") inner=head+`<div class="wrap-t"><div class="body">${paras(p.body)}</div>${fig}</div>`;
   else if(p.layout==="citacao") inner=head+fig+`<div class="body">${paras(p.body)}</div>`;
   else inner=fig+head+`<div class="body">${paras(p.body)}</div>`;
-  const own=!!(me&&p.authorId===me.id),mine=own||isAdmin();
+  const own=isTeam(),mine=isTeam();
   el.className="art l-"+(p.layout||"manchete");
   el.innerHTML=`<button class="back" data-back>Voltar à Folha</button>${inner}
     <div class="art-foot">${prod?`<button class="btn btn-solid" data-prod="${prod.id}">Ver a ${esc(prod.name)}</button>`:"<span></span>"}
@@ -236,19 +238,27 @@ $("#cPublish").onclick=async()=>{
       "Não foi possível publicar agora. Verifique a internet e tente de novo.";
   }finally{$("#cPublish").disabled=false;}
 };
-$("#jrWrite").onclick=async()=>{if(me)return openComposer(null);try{await BE.login();if(me)openComposer(null);}catch(e){if(e&&e.code!=="auth/popup-closed-by-user")toast("Não foi possível entrar. Tente de novo.");}};
-$("#jrLogout").onclick=()=>BE.logout();
+$("#jrWrite").onclick=()=>{if(isTeam())openComposer(null);};
+$("#jrLogout").onclick=async()=>{
+  if(me){BE.logout();return;}
+  try{await BE.login();}catch(e){if(e&&e.code!=="auth/popup-closed-by-user")toast("Não foi possível entrar. Tente de novo.");}
+};
 
 /* ----- conexão com o banco ----- */
+$(".jr-bar p").textContent="Histórias das camisas, das coleções e de tudo que inspira a D'BUCO, contadas por quem faz a marca.";
 function renderMe(){
-  $("#jrWrite").textContent=me||(BE&&BE.mode==="teste")?"Escrever na Folha":"Entrar com Google para escrever";
-  $("#jrNote").textContent=me?`Você entrou como ${me.name||me.email||"autor"}.`:(BE&&BE.mode==="teste"?"Modo teste: as publicações ficam só neste navegador.":"Para publicar, entre com sua conta Google. Ler é livre.");
-  $("#jrLogout").hidden=!me||(BE&&BE.mode==="teste");
+  const team=isTeam();
+  $("#jrWrite").hidden=!team;$("#jrWrite").style.display=team?"":"none";
+  $("#jrLogout").hidden=false;
+  $("#jrLogout").textContent=me?"Sair da conta":"Entrar (equipe D'BUCO)";
+  $("#jrNote").textContent=
+    BE&&BE.mode==="teste"?"Modo teste: as publicações ficam só neste navegador.":
+    team?`Você está escrevendo como ${me.name||me.email}.`:
+    me?`A conta ${me.email} não faz parte da equipe da Folha. Peça para incluírem seu e-mail no config.js e nas regras do Firebase.`:"";
 }
 window.FOLHA_BACKEND.then(be=>{
   BE=be;
   if(be.mode==="offline"){renderFeed();return;}
-  $("#jrWrite").hidden=false;
   be.onUser(u=>{me=u;renderMe();if(openId)renderArticle();});
   renderMe();
   be.subscribe(list=>{posts=list;renderFeed();if(openId)renderArticle();},

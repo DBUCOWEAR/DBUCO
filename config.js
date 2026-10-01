@@ -1,25 +1,16 @@
-/* =========================================================
-   CONFIGURAÇÃO DO SITE D'BUCO
-   É o único arquivo que vocês precisam editar.
-   ========================================================= */
-
 window.SITE_CONFIG = {
   // WhatsApp que recebe os pedidos: 55 + DDD + número, só dígitos
-  whatsapp: "5581999999999",
+  whatsapp: "5581996138575",
 
-  // E-mails (conta Google) que podem apagar qualquer publicação da Folha.
-  // Use os mesmos e-mails no arquivo firestore.rules.
-  admins: ["seuemail@gmail.com"],
+  // E-mail Google de quem pode apagar qualquer publicação da Folha
+  admins: ["dbucowear@gmail.com"],
 
-  // Cole aqui o firebaseConfig do seu projeto (passo 2 do LEIA-ME).
-  // Enquanto apiKey estiver vazio, a Folha roda em MODO TESTE:
-  // as publicações ficam salvas só no navegador de quem escreveu.
   firebase: {
-    apiKey: "",
-    authDomain: "",
-    projectId: "",
-    storageBucket: "",
-    messagingSenderId: "",
-    appId: ""
+    apiKey: "AIzaSyDvAQTUD-ngxztxyC7gJes0sh2OXLzg8Mg",
+    authDomain: "dbuco-eac31.firebaseapp.com",
+    projectId: "dbuco-eac31",
+    storageBucket: "dbuco-eac31.firebasestorage.app",
+    messagingSenderId: "570389268285",
+    appId: "1:570389268285:web:bff540d128fd2ffc396754"
   }
 };
